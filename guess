@@ -1,0 +1,111 @@
+import random
+
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+    PURPLE = '\033[95m'
+    BLUE = '\033[94m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    RED = '\033[91m'
+    RESET = '\033[0m'
+    # Regular foreground colors
+    BLACK = '\033[30m'
+    REDD = '\033[31m'
+    BLUEE = '\033[34m'
+    MAGENTA = '\033[35m'
+    CYAN = '\033[36m'
+    WHITE = '\033[37m'
+    # Regular background colors
+    BG_BLACK = '\033[40m'
+    BG_RED = '\033[41m'
+    BG_GREEN = '\033[42m'
+    BG_YELLOW = '\033[43m'
+    BG_BLUE = '\033[44m'
+    BG_MAGENTA = '\033[45m'
+    BG_CYAN = '\033[46m'
+    BG_WHITE = '\033[47m'
+
+    # Bright (bold) background colors
+    BG_BRIGHT_BLACK = '\033[100m'
+    BG_BRIGHT_RED = '\033[101m'
+    BG_BRIGHT_GREEN = '\033[102m'
+    BG_BRIGHT_YELLOW = '\033[103m'
+    BG_BRIGHT_BLUE = '\033[104m'
+    BG_BRIGHT_MAGENTA = '\033[105m'
+    BG_BRIGHT_CYAN = '\033[106m'
+    BG_BRIGHT_WHITE = '\033[107m'
+
+    # Bright (bold) foreground colors
+    BRIGHT_BLACK = '\033[30;1m'
+    BRIGHT_RED = '\033[31;1m'
+    BRIGHT_GREEN = '\033[32;1m'
+    BRIGHT_YELLOW = '\033[33;1m'
+    BRIGHT_BLUE = '\033[34;1m'
+    BRIGHT_MAGENTA = '\033[35;1m'
+    BRIGHT_CYAN = '\033[36;1m'
+    BRIGHT_WHITE = '\033[37;1m'
+
+
+while True:
+    try:
+        print(bcolors.OKGREEN + bcolors.BOLD, end="")
+        print("""You have to Guess a number in\nRange of 1 to 15.\nYou will have 3 Attempts only.\n""", bcolors.ENDC
+              + bcolors.BG_BRIGHT_BLACK + "\b..............................", bcolors.ENDC)
+        i = 1
+        number = random.randint(1, 15)
+        attempts = 3
+        # print(number)
+
+        while i < 4:
+            print(bcolors.WARNING, bcolors.BOLD, end="")
+            print("\bAttempts remaining:", bcolors.ENDC, bcolors.FAIL + bcolors.BOLD, attempts, bcolors.ENDC)
+            if i == 1:
+                print(bcolors.HEADER, bcolors.BOLD, end="")
+                guess = int(input("\bGuess a Number: " + bcolors.ENDC))
+            else:
+                print(bcolors.HEADER, bcolors.BOLD, end="")
+                guess = int(input("\bGuess again: " + bcolors.ENDC))
+
+            if guess in range(1, 16) and guess > 1:
+
+                if guess == number:
+                    print(bcolors.OKBLUE + bcolors.BG_BRIGHT_BLACK + "Hurry! You won😍", bcolors.ENDC)
+                    break
+                elif guess > number:
+                    if i != 3:
+                        if (guess - number) >= 4:
+                            print(bcolors.HEADER + bcolors.BOLD + "too far🙄" + bcolors.ENDC)
+                            print(bcolors.OKBLUE + "HINT! Less some More😉" + bcolors.ENDC)
+                        else:
+                            print(bcolors.HEADER + bcolors.BOLD + "close" + bcolors.ENDC)
+                            print(bcolors.OKBLUE + "HINT! Less some😉" + bcolors.ENDC)
+                elif guess < number:
+                    if i != 3:
+                        if (number - guess) >= 4:
+                            print(bcolors.HEADER + bcolors.BOLD + "too far🙄" + bcolors.ENDC)
+                            print(bcolors.OKBLUE + "HINT! add some More😉" + bcolors.ENDC)
+                        else:
+                            print(bcolors.HEADER + bcolors.BOLD + "close😉", bcolors.ENDC)
+                            print(bcolors.OKBLUE + "HINT! add some😉" + bcolors.ENDC)
+
+            else:
+                print(bcolors.FAIL + "write numbers in between 1 and 15😐", bcolors.ENDC)
+                i = i - 1
+                attempts += 1
+            i = i + 1
+            attempts -= 1
+        else:
+            print(bcolors.FAIL + bcolors.BOLD, end="")
+            print("You have lost the game😗")
+            print("The number was actually", number, bcolors.ENDC)
+
+    except (ValueError, SyntaxError):
+        print("Write only valid numbers")
